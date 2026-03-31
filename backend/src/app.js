@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
-import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { randomUUID } from 'crypto';
@@ -9,14 +8,11 @@ import { readDb, writeDb, ensureDb } from './store.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const backendRoot = path.resolve(__dirname, '..');
-const uploadDir = path.join(backendRoot, 'uploads');
 
-fs.mkdirSync(uploadDir, { recursive: true });
 ensureDb();
 
 const upload = multer({
-  dest: uploadDir,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 }
 });
 
@@ -71,6 +67,18 @@ function plainTextToHtml(text) {
     .map((block) => `<p>${escapeHtml(block).replace(/\r?\n/g, '<br/>')}</p>`)
     .join('');
 }
+
+app.get('/', (_req, res) => {
+  res.json({
+    name: 'Ajaia Docs API',
+    status: 'ok',
+    docs: ['/api/health', '/api/users', '/api/documents']
+  });
+});
+
+app.get('/favicon.ico', (_req, res) => {
+  res.status(204).end();
+});
 
 app.get('/api/health', (_req, res) => {
   res.json({
@@ -218,12 +226,10 @@ app.post('/api/documents/import', upload.single('file'), (req, res) => {
 
   const extension = path.extname(file.originalname).toLowerCase();
   if (!['.txt', '.md'].includes(extension)) {
-    fs.unlinkSync(file.path);
     return res.status(400).json({ error: 'Only .txt and .md files are supported in this demo.' });
   }
 
-  const rawText = fs.readFileSync(file.path, 'utf8');
-  fs.unlinkSync(file.path);
+  const rawText = file.buffer.toString('utf8');
 
   const importedDoc = {
     id: randomUUID(),

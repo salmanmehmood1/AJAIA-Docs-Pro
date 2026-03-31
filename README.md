@@ -69,12 +69,22 @@ npm test
 
 ### Frontend on Vercel
 
-Deploy the `frontend/` folder to Vercel and set:
+You can deploy the whole repository to **one Vercel project** or deploy `frontend/` separately.
+
+If the frontend is deployed separately, set:
 
 ```bash
 VITE_API_URL=https://your-backend-url.com
 ```
 
-### Backend hosting
+If you deploy the whole repo together, the frontend will call the same-origin `/api/*` routes automatically.
 
-The current backend uses `backend/data/db.json` for persistence, so it is best hosted on **Render**, **Railway**, or another Node host with a persistent filesystem. If you later want the backend on Vercel too, switch the JSON store to a real database first.
+### Backend on Vercel
+
+The backend is now safe for Vercel serverless execution:
+
+- uploads are processed in memory
+- the demo JSON database falls back to `/tmp` on Vercel
+- local development still uses `backend/data/db.json`
+
+> For a production-grade deployment, replace the JSON datastore with a real database.

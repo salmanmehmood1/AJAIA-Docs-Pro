@@ -1,4 +1,5 @@
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -26,7 +27,15 @@ const DEFAULT_DB = {
 };
 
 function getDbFile() {
-  return process.env.DB_FILE || path.join(backendRoot, 'data', 'db.json');
+  if (process.env.DB_FILE) {
+    return process.env.DB_FILE;
+  }
+
+  if (process.env.VERCEL) {
+    return path.join(os.tmpdir(), 'ajaia-docs', 'db.json');
+  }
+
+  return path.join(backendRoot, 'data', 'db.json');
 }
 
 export function ensureDb() {
