@@ -11,13 +11,13 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:frontend": "npm run dev --workspace frontend",
     "dev:backend": "npm run dev --workspace backend",
-    "build": "npm run build --workspace frontend",
+    "build": "npm run build --workspace frontend && node ./scripts/prepare-vercel-dist.mjs",
     "test": "npm run test --workspace backend"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
   },
   "engines": {
-    "node": ">=18"
+    "node": "20.x"
   }
 }
