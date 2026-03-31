@@ -11,6 +11,11 @@ A lightweight collaborative document editor built for the Ajaia full-stack asses
 - ✅ Local persistence via a JSON datastore that survives refreshes
 - ✅ One automated backend test for document creation + sharing
 
+## Vercel Deployment
+
+- Frontend: https://ajaia-docs-pro-6fwf.vercel.app
+- Backend: https://ajaia-docs-pro-backend.vercel.app
+
 ## Tech stack
 
 - **Frontend:** React + Vite
@@ -88,6 +93,5 @@ The backend is now safe for Vercel serverless execution:
 - local development still uses `backend/data/db.json`
 
 > For a production-grade deployment, replace the JSON datastore with a real database.
->
 > <img width="1893" height="985" alt="image" src="https://github.com/user-attachments/assets/88e6b242-8ba5-4f67-9afa-ac9d7c791fd5" />
 
