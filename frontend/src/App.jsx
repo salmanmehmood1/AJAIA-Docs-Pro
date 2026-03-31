@@ -386,23 +386,7 @@ export default function App() {
       </aside>
 
       <main className="editor-panel">
-        <section className="hero-panel">
-          <div>
-            <p className="eyebrow accent">Workspace overview</p>
-            <h2>Run the React frontend and Node.js backend separately</h2>
-            <p className="muted">
-              Frontend: <code>npm run dev:frontend</code> · Backend: <code>npm run dev:backend</code>
-            </p>
-          </div>
-          <div className="stats-row">
-            {summaryStats.map((item) => (
-              <div key={item.label} className={`stat-card ${item.tone}`}>
-                <strong>{item.value}</strong>
-                <span>{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+        
 
         <header className="topbar">
           <div>
@@ -412,6 +396,14 @@ export default function App() {
                 ? `Editing as ${activeUser?.name || 'team member'} · ${isOwner ? 'owner access' : 'shared access'}`
                 : 'Choose, create, or import a document to start editing.'}
             </p>
+          </div>
+          <div className="stats-row">
+            {summaryStats.map((item) => (
+              <div key={item.label} className={`stat-card ${item.tone}`}>
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
+              </div>
+            ))}
           </div>
 
           <div className="topbar-actions">
