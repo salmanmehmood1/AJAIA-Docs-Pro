@@ -1,5 +1,4 @@
 import fs from 'fs';
-import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -32,7 +31,7 @@ function getDbFile() {
   }
 
   if (process.env.VERCEL) {
-    return path.join(os.tmpdir(), 'ajaia-docs', 'db.json');
+    return path.posix.join('/tmp', 'ajaia-docs', 'db.json');
   }
 
   return path.join(backendRoot, 'data', 'db.json');
