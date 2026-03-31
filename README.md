@@ -88,3 +88,6 @@ The backend is now safe for Vercel serverless execution:
 - local development still uses `backend/data/db.json`
 
 > For a production-grade deployment, replace the JSON datastore with a real database.
+>
+> <img width="1893" height="985" alt="image" src="https://github.com/user-attachments/assets/88e6b242-8ba5-4f67-9afa-ac9d7c791fd5" />
+
